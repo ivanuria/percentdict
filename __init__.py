@@ -1,2 +1,2 @@
 #!/usr/bin/env python3
-from percentdict import PercentDict
+from .percentdict import PercentDict
