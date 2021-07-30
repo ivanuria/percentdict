@@ -97,6 +97,9 @@ class PercentDict(MutableMapping):
     def clear(self):
         self._mapping = [(1, None)]
 
+    def copy(self):
+        return self.__class__(self)
+
     def get(self, key):
         if isinstance(key, (float, int)):
             if key < 0 or 1 < key:
