@@ -51,21 +51,6 @@ I.E:
 pd[random.randint(10)/10]
 
 You can use other dict methods, like keys(), values()... But pop, popitem and setdefault are not implemented.
-
-For a more intuitive implementation in case you want to use like the example a dice like, you can use RangedDict. It will only accept integers in getters, setters and slices.
-
-I.E:
-
-rd = RangedDict(d=12) # d means the faces of the dice
-
-rd[1] = "You PC is poor"
-rd[2:4] = "Your PC can survive"
-rd[5:9] = "Your PC is middle class"
-rd[10:11] = "Your PC is rich"
-rd[12] = "Your PC is millionaire"
-
-pd[6]
-"Your PC is middle class"
 """
 
 from collections.abc import MutableMapping
@@ -188,6 +173,10 @@ class PercentDict(MutableMapping):
                 raise KeyError("Key not found. If this error is raised I'm a moron")
             
         elif isinstance(key, slice):
+            if key.start < 0 or key.start > 1:
+                raise KeyError("Keys must be a float between 0 and 1")
+            if key.stop < 0 or key.stop > 1:
+                raise KeyError("Keys must be a float between 0 and 1")
             final = []
             for item in self._mapping:
                 if not final and key.start <= item[0]:
@@ -196,11 +185,10 @@ class PercentDict(MutableMapping):
                     final.append(item[1])
                     if key.stop <= item[0]:
                         break
-
             if final:
                 return tuple(final)
             else:
-                raise KeyError()
+                raise KeyError("Key not found. If this error is raised I'm a moron")
         
         else:
             raise KeyError("Key must be a number or a slice")
