@@ -74,7 +74,7 @@ from collections.abc import Iterable
 
 class PercentDict(MutableMapping):
     def __init__(self, instance=None):
-        self._mapping = [(1, None)] #By default everything is None
+        self.clear() #By default everything is None
         if instance is not None:
             self.update(instance)
 
