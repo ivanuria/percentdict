@@ -58,10 +58,10 @@ from collections.abc import KeysView, ValuesView, ItemsView
 from collections.abc import Iterable
 
 class PercentDict(MutableMapping):
-    def __init__(self, instance=None):
+    def __init__(self, mapping=None):
         self.clear() #By default everything is None
-        if instance is not None:
-            self.update(instance)
+        if mapping is not None:
+            self.update(mapping)
 
     def __contains__(self, item): # Checks values
         for i in self._mapping.copy():
