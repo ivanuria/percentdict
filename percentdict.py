@@ -165,6 +165,9 @@ class PercentDict(MutableMapping):
             if end_index is None or start_index is None:
                 self._mapping.sort()
 
+        else:
+            raise KeyError("key must be a float or int between 0 and 1 or a slice with both members being int or float between 0 and 1")
+
     def __str__(self):
         return self.__repr__()
     
