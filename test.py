@@ -43,6 +43,10 @@ class TestPercentDict(unittest.TestCase):
         self.pd.update(self.data)
         for item in self.data:
             self.assertEqual(self.pd.get(item[0]), item[1])
+        for item in self.data:
+            self.assertEqual(self.pd[item[0]], item[1])
+        self.assertEqual(self.pd[0.3], "Fifty")
+        self.assertEqual(self.pd[0.1:0.3], ("Twenty", "Fifty"))
 
     def test_04_contains(self):
         self.pd.update(self.data)
@@ -74,7 +78,7 @@ class TestPercentDict(unittest.TestCase):
         self.assertEqual(pd1, self.pd)
         self.assertFalse(pd1 is self.pd)
 
-    def test_08_keys7(self):
+    def test_08_keys(self):
         self.pd.update(self.data)
         self.assertEqual(list(self.pd.keys()), [0.2, 0.5, 0.75, 1])
         self.assertEqual(list(reversed(self.pd.keys())), [1, 0.75, 0.5, 0.2])
@@ -89,7 +93,6 @@ class TestPercentDict(unittest.TestCase):
     def test_10_items(self):
         self.pd.update(self.data)
         self.data.sort()
-        print(f"\n\n{self.pd._mapping}")
         self.assertEqual(list(self.pd.items()), self.data)
         self.data.reverse()
         self.assertEqual(list(reversed(self.pd.items())), self.data)
@@ -99,3 +102,27 @@ class TestPercentDict(unittest.TestCase):
         self.pd.update(self.data)
         self.pd.clear()
         self.assertEqual(self.pd._mapping, [(1, None)])
+
+    def test_12_example(self):
+        data = ["You PC is poor",
+                "Your PC can survive",
+                "Your PC is middle class",
+                "Your PC is rich",
+                "Your PC is millionaire"]
+        pd = PercentDict()
+        pd[0:0.1] = data[0]
+        pd[0.1:0.3] = data[1]
+        pd[0.3:0.7] = data[2]
+        pd[0.8:0.9] = data[3]
+        pd[1] = data[4]
+        self.assertEqual(pd[0.1], data[0])
+        self.assertEqual(pd[0.15], data[1])
+        
+        pd.clear()
+        pd[0.1] = "You PC is poor"
+        pd[0.3] = "Your PC can survive"
+        pd[0.7] = "Your PC is middle class"
+        pd[0.9] = "Your PC is rich"
+        pd[1] = "Your PC is millionaire"
+        self.assertEqual(pd[0.15], data[1])
+        self.assertEqual(pd[0.2], data[1])
