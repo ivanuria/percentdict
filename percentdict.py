@@ -53,6 +53,8 @@ pd[random.randint(10)/10]
 You can use other dict methods, like keys(), values()... But pop, popitem and setdefault are not implemented.
 """
 
+__package__ = "percentdict"
+
 from collections.abc import MutableMapping
 from collections.abc import KeysView, ValuesView, ItemsView
 from collections.abc import Iterable

@@ -21,6 +21,8 @@ You can use the method random() to get a randomized value.
 rd.random()
 """
 
+__package__ = "percentdict"
+
 from percentdict import PercentDict
 import random
 
@@ -101,4 +103,4 @@ class RangedDict(PercentDict):
             raise KeyError(f"key must be int or a slice of ints between 0 and {self._d}")
 
     def random(self):
-        return self.get(random.randint(self._d))
+        return self.get(random.randint(1, self._d))
