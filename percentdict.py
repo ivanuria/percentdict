@@ -42,6 +42,9 @@ class PercentDict(MutableMapping):
     def __ne__(self, instance):
         return not self.__eq__(instance)
 
+    def __repr__(self):
+        return f"PercentDict({repr(self._mapping)})"
+
     def __setitem__(self, key, value):
         if isinstance(key, (float, int)):
             if key < 0 or key > 1:
@@ -93,6 +96,9 @@ class PercentDict(MutableMapping):
                     del(self[i])
             if end_index is None or start_index is None:
                 self._mapping.sort()
+
+    def __str__(self):
+        return self.__repr__()
     
     def clear(self):
         self._mapping = [(1, None)]
